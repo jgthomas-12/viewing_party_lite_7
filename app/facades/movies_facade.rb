@@ -1,6 +1,7 @@
 class MoviesFacade
   attr_reader :user_id,
               :movie_id
+              # :actors
 
   def initialize(params)
     @user_id = params[:user_id]
@@ -20,9 +21,23 @@ class MoviesFacade
     end
   end
 
-  def movie_info(id)
+  def movie(id)
     movie = service.movie_by_id(id)
     Movie.new(movie)
+  end
+
+  def actors(id)
+    actors = service.movie_cast(id)
+    @actors = actors[:cast].map do |actor|
+      Actor.new(actor)
+    end
+  end
+
+  def reviews(id)
+    reviews = service.search_reviews_by_movie(id)
+    @reviews = reviews[:results].map do |r|
+      Review.new(r)
+    end
   end
 
   def service
