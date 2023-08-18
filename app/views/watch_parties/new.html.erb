@@ -20,7 +20,7 @@ Length: <%= @movie.runtime %> <br>
 Vote Average: <%= @movie.vote_average %> <br>
 Genre:
 <% @movie.genres.each do |genre| %>
-  <%= genre[:name] %>,
+  <%= genre[:name] %>
 <% end %> <br>
 Summary: <%= @movie.overview %> <br>
 
