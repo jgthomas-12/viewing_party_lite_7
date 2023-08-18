@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :create] do
     resources :movies, only: [:index, :create]
     get "discover", to: "discover#discover"
-    get "movies/:movie_id", to: "movies#show"
-    get "movies/:movie_id/viewing-party/new", to: "watch_parties#new"
+    get "movies/:movie_id", to: "movies#show", as: "movie"
+    get "movies/:movie_id/viewing-party/new", to: "watch_parties#new", as: "new_party"
     # post "watch_parties", to: "watch_parties#create"
   end
   post "/users/:user_id", to: "watch_parties#create"
