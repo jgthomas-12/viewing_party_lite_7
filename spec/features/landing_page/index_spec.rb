@@ -62,6 +62,7 @@ RSpec.describe "landing page - index '/' " do
     it "rediects to dashboard after logging in" do
       joey = User.last
       visit root_path
+
       click_button "Log Out"
       click_link "Log In"
       fill_in(:email, with: "joeyjoey@joey.com")

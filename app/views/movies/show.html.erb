@@ -1,8 +1,9 @@
-<br><%= link_to "Movie Discover Page", "/users/#{@user.id}/discover", method: :get %> <br>
-<br><%= button_to "Create Watch Party", "/users/#{@user.id}/movies/#{@facade.details[:id]}/viewing-party/new", method: :get %>
-<p> 
-<p><%= image_tag "https://image.tmdb.org/t/p/original#{@facade.details[:poster_path]}", size: "300x400" %> <br>
-<br>Movie: <%= @facade.details[:title] %> <br>
-Length:<%= @facade.details[:runtime] %> <br>
-Vote Average: <%= @facade.details[:vote_average] %> <br>
+<br><%= link_to "Movie Discover Page", user_discover_path(@facade.user_id), method: :get %> <br>
+
+<br><%= button_to "Create Watch Party", user_new_party_path(@facade.user_id, @facade.movie_id), method: :get %>
+<p>
+<p><%= image_tag "https://image.tmdb.org/t/p/original#{@movie.image}", size: "300x400" %> <br>
+<br>Movie: <%= @movie.title %> <br>
+Length:<%= @movie.runtime %> <br>
+Vote Average: <%= @movie.vote_average %> <br>
 </p>

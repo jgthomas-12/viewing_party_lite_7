@@ -1,4 +1,4 @@
-<%= form_with url: "/users/#{@user.id}", local: true, method: :post  do |f| %>
+<%= form_with url: user_path(@user), local: true, method: :post  do |f| %>
   <%= f.label :date %>
   <%= f.date_field :date %>
 
@@ -14,7 +14,7 @@
   <%= f.submit %>
 <% end %>
 
-<p> 
+<p>
 Movie: <%= @movie.details[:title] %> <br>
 Length: <%= @movie.details[:runtime] %> <br>
 Vote Average: <%= @movie.details[:vote_average] %> <br>

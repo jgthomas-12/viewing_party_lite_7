@@ -1,10 +1,11 @@
-<br><%= link_to "Movie Discover Page", user_discover_path(@user), method: :get %>
+<br><%= link_to "Movie Discover Page", user_discover_path(@facade.user_id), method: :get %>
 <h2> Movies watched </h2>
 
 <h2> Top Rated Movies </h2>
-<% @facade.details.each do |movie| %>
+
+<% @facade.movies.each do |movie| %>
   <p>
-  Movie: <%= link_to movie.title, "/users/#{@user.id}/movies/#{movie.id}" %> <br>
+  Movie: <%= link_to movie.title, user_movie_path(@facade.user_id, movie) %> <br>
   Popularity: <%= movie.popularity %> <br>
   <p>
 <% end %>
