@@ -23,29 +23,35 @@ RSpec.describe "Create watch party" do
 
   describe "As a visitor when I visit movie show page" do
     it "can display a button to make a new movie", :vcr do
-      visit "/users/#{user_1.id}/movies/455476"
+      movie_id = 455476
+      visit user_movie_path(user_1, movie_id)
       click_button "Create Watch Party"
-      expect(current_path).to eq("/users/#{user_1.id}/movies/455476/viewing-party/new")
+      expect(current_path).to eq(user_new_party_path(user_1, movie_id))
     end
+
     it "can create new controller", :vcr do
-      movie = MovieService.new.movie_by_id(455476)
-      visit "/users/#{user_1.id}/movies/455476/viewing-party/new"
+      movie_id = 455476
+      movie = MovieService.new.movie_by_id(movie_id)
+      visit user_new_party_path(user_1, movie_id)
+
       fill_in(:date, with: "8/8/23")
       fill_in(:duration, with: 120)
       fill_in(:start_time, with: "13:00")
       find("#movie_title", visible: false).set(movie[:title])
       check("#{user_2.name}")
       click_button "Save"
-      expect(current_path).to eq("/users/#{user_1.id}")
+
+      expect(current_path).to eq(user_path(user_1))
       expect(page).to have_content("Date: 8/8/23")
       expect(page).to have_content("Movie: Knights of the Zodiac")
       expect(page).to have_content(user_2.name)
     end
 
     it "can display movie details on watch party create page", :vcr do
-      movie = MovieService.new.movie_by_id(455476)
-      actor = MovieService.new.movie_cast(455476)
-      visit "/users/#{user_1.id}/movies/455476/viewing-party/new"
+      movie_id = 455476
+      movie = MovieService.new.movie_by_id(movie_id)
+      actor = MovieService.new.movie_cast(movie_id)
+      visit user_new_party_path(user_1, movie_id)
 
       expect(page).to have_content("Knights of the Zodiac")
       # expect(page).to have_content("Length: 112")
@@ -53,8 +59,9 @@ RSpec.describe "Create watch party" do
     end
 
     it "can display review details", :vcr do
-      MovieService.new.search_reviews_by_movie(238)
-      visit "/users/#{user_1.id}/movies/238/viewing-party/new"
+      movie_id = 238
+      MovieService.new.search_reviews_by_movie(movie_id)
+      visit user_new_party_path(user_1, movie_id)
 
       expect(page).to have_content("Author: futuretv")
       expect(page).to have_content("Name: ")
